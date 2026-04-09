@@ -11,11 +11,18 @@ function resolveApiUrl(): string {
     return normalizeApiUrl(DEFAULT_API_URL);
   }
 
+  const hostname = window.location.hostname;
+  const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1';
+
+  if (!isLocalhost) {
+    return normalizeApiUrl(process.env.NEXT_PUBLIC_API_URL || `${window.location.origin}/api/v1`);
+  }
+
   if (window.location.port === '8080') {
     return `${window.location.origin.replace(/\/$/, '')}/api/v1`;
   }
 
-  return `${window.location.protocol}//${window.location.hostname}:8080/api/v1`;
+  return `${window.location.protocol}//${hostname}:8080/api/v1`;
 }
 
 const apiBaseUrl = resolveApiUrl();

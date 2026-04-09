@@ -50,6 +50,26 @@ class Settings(BaseSettings):
                 return [item.strip() for item in value.split(",")]
         return value
 
+    @field_validator("DATABASE_URL", mode="before")
+    @classmethod
+    def normalize_async_database_url(cls, value):
+        db_url = str(value or "").strip()
+        if db_url.startswith("postgres://"):
+            db_url = db_url.replace("postgres://", "postgresql+asyncpg://", 1)
+        elif db_url.startswith("postgresql://") and "+asyncpg" not in db_url:
+            db_url = db_url.replace("postgresql://", "postgresql+asyncpg://", 1)
+        return db_url
+
+    @field_validator("DATABASE_URL_SYNC", mode="before")
+    @classmethod
+    def normalize_sync_database_url(cls, value):
+        db_url = str(value or "").strip()
+        if db_url.startswith("postgresql+asyncpg://"):
+            db_url = db_url.replace("postgresql+asyncpg://", "postgresql://", 1)
+        elif db_url.startswith("postgres://"):
+            db_url = db_url.replace("postgres://", "postgresql://", 1)
+        return db_url
+
     # Ollama and AI routing
     OLLAMA_BASE_URL: str = "http://localhost:11434"
     OLLAMA_MODEL: str = "mistral"
