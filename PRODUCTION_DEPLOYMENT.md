@@ -1,151 +1,131 @@
-# ORVANTA Production Deployment Runbook
+# ORVANTA Free-Tier Production Deployment
 
-This guide deploys ORVANTA in production with a stable split architecture:
+This runbook is for a 100% free-hosting setup.
 
-- Frontend: Vercel
-- Backend API: Render (Docker web service)
-- Background jobs: Render workers (Celery worker + Celery beat)
-- Database: Supabase Postgres
-- Redis: Upstash Redis
+## Free Stack
 
-This setup avoids local bottlenecks, supports horizontal scaling, and keeps operational risk lower than all-in-one free-host deployments.
+- Frontend: Vercel (Free)
+- Backend API: Render Web Service (Free)
+- Database + Auth: Supabase (Free)
+- Redis: Upstash Redis (Free)
 
-## 1) Create Managed Infrastructure
+## Important Reality (No Paid Plan)
 
-### 1.1 Supabase Postgres
+- Cold starts can happen on free services.
+- Background workers are disabled in this free blueprint.
+- Automatic scheduled ingest/live-sync is disabled.
+- Manual sync from the Manage screen is the recommended mode.
 
-Create a Supabase project and copy:
+This gives the best stability possible under free limits.
 
-- Project URL
-- Database connection string
-- JWT issuer
+## 1) Create Free Infrastructure
 
-Use pooler or direct connection URL as needed.
+### 1.1 Supabase
+
+Create a project and collect:
+
+- SUPABASE_URL
+- SUPABASE_JWT_ISSUER
+- Database URL (for app)
 
 ### 1.2 Upstash Redis
 
-Create a Redis database and copy:
+Create a Redis DB and copy:
 
-- REDIS_URL (rediss://...)
+- REDIS_URL
 
-## 2) Deploy Backend on Render
+## 2) Deploy Backend (Render Free)
 
-### 2.1 Create Blueprint
+Use Render Blueprint from repo root. It reads [render.yaml](render.yaml).
 
-In Render dashboard:
+Only one web service is created:
 
-- New -> Blueprint
-- Select repo: SHASHWAT-MISHRA-997/ORVANTA-AI
-- Render will detect render.yaml
+- orvanta-api
 
-Services created:
+### Required Environment Variables
 
-- orvanta-api (web)
-- orvanta-worker (worker)
-- orvanta-beat (worker)
-
-### 2.2 Set Required Environment Variables (all 3 services)
-
-Set these values exactly:
+Set these in Render web service:
 
 - APP_ENV=production
 - APP_DEBUG=false
+- SQL_ECHO=false
 - API_V1_PREFIX=/api/v1
 - DATABASE_URL=<supabase async url>
 - DATABASE_URL_SYNC=<supabase sync url>
 - REDIS_URL=<upstash redis url>
-- JWT_SECRET_KEY=<64+ random chars>
-- BACKEND_CORS_ORIGINS=["https://<your-vercel-domain>"]
+- JWT_SECRET_KEY=<strong random 64+ chars>
+- JWT_ALGORITHM=HS256
+- JWT_ACCESS_TOKEN_EXPIRE_MINUTES=1440
 - FRONTEND_URL=https://<your-vercel-domain>
-- SUPABASE_URL=https://<your-supabase-project>.supabase.co
-- SUPABASE_JWT_ISSUER=https://<your-supabase-project>.supabase.co/auth/v1
+- BACKEND_CORS_ORIGINS=["https://<your-vercel-domain>"]
+- SUPABASE_URL=https://<project>.supabase.co
+- SUPABASE_JWT_ISSUER=https://<project>.supabase.co/auth/v1
 - SUPABASE_JWT_AUDIENCE=authenticated
+- AUTO_INGEST_ENABLED=false
+- LIVE_SYNC_AUTO_ENABLED=false
 
-Optional AI and mail variables:
+Optional keys:
 
-- GROQ_API_KEY, OPENROUTER_API_KEY, NVIDIA_API_KEY
+- GROQ_API_KEY
+- OPENROUTER_API_KEY
+- NVIDIA_API_KEY
 - SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD, SMTP_FROM
 
-### 2.3 Health Verification
+### Backend Health Check
 
-After deployment succeeds:
+- https://<render-api-domain>/api/v1/health
 
-- https://<render-api-domain>/api/v1/health -> should return status ok
+Expected:
 
-## 3) Deploy Frontend on Vercel
+- status ok
 
-### 3.1 Import Project
+## 3) Deploy Frontend (Vercel Free)
 
-In Vercel dashboard:
+Import repo on Vercel with root directory `frontend`.
 
-- Add New Project
-- Import repo: SHASHWAT-MISHRA-997/ORVANTA-AI
-- Root Directory: frontend
-
-### 3.2 Set Environment Variables
-
-In Vercel project environment variables:
+Set frontend env vars:
 
 - NEXT_PUBLIC_API_URL=https://<render-api-domain>/api/v1
 - NEXT_PUBLIC_WS_URL=wss://<render-api-domain>/api/v1/ws
-- NEXT_PUBLIC_SUPABASE_URL=https://<your-supabase-project>.supabase.co
+- NEXT_PUBLIC_SUPABASE_URL=https://<project>.supabase.co
 - NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=<supabase publishable key>
-- NEXT_PUBLIC_GOOGLE_CLIENT_ID=<optional>
-- NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<optional>
 
-Deploy to production.
+Optional:
 
-## 4) Update Backend CORS After Frontend Domain Is Live
+- NEXT_PUBLIC_GOOGLE_CLIENT_ID
+- NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
 
-Set BACKEND_CORS_ORIGINS again to include all live frontend domains:
+Deploy production.
 
-["https://<main-vercel-domain>","https://<custom-domain-if-any>"]
+## 4) Final Validation Checklist
 
-Redeploy backend service once.
+1. Open frontend URL and verify login page loads.
+2. Sign in and open dashboard pages.
+3. Verify events and alerts APIs load from backend.
+4. Verify forgot password flow through Supabase.
+5. Verify Manage page manual sync works.
 
-## 5) Final Production Validation
+## 5) What Is Disabled In Free Mode
 
-Run this sequence:
+- Celery worker service
+- Celery beat scheduler
+- Automatic periodic ingest/live sync
 
-1. Open frontend production URL.
-2. Sign up / login works.
-3. Forgot password sends email and reset link opens correctly.
-4. Dashboard pages load under 2-3 seconds after warm start.
-5. /api/v1/health returns ok.
-6. Live sync works from Manage page.
-7. Worker and beat services show healthy logs in Render.
+If you need always-on background processing and no cold starts, paid plan is required.
 
-## 6) Reliability Settings (Recommended)
+## 6) Troubleshooting
 
-- Render service plan: Starter or above for no sleep
-- Enable auto-deploy only on main branch
-- Add uptime monitor ping to /api/v1/health every 5 min
-- Keep JWT secret, SMTP keys, AI keys rotated periodically
+### API/CORS issue
 
-## 7) Common Failure Fixes
+- Ensure BACKEND_CORS_ORIGINS contains exact Vercel URL JSON array.
+- Ensure NEXT_PUBLIC_API_URL points to Render API domain with `/api/v1`.
 
-### 502 or CORS errors
+### Login works but dashboard fails
 
-- Check NEXT_PUBLIC_API_URL points to Render API domain
-- Check BACKEND_CORS_ORIGINS JSON is valid and includes frontend domain
+- Verify JWT_SECRET_KEY is set and non-empty.
+- Verify Supabase issuer and audience values are correct.
 
-### Login works but dashboard API fails
+### Forgot password email not delivered
 
-- Check API_V1_PREFIX and frontend base URL both use /api/v1
-- Verify JWT_SECRET_KEY is same for all backend services
-
-### Celery tasks not running
-
-- Check REDIS_URL for worker and beat
-- Verify worker and beat services are both up in Render
-
-### Forgot password not delivered
-
-- Verify Supabase Email template and redirect URL
-- Use custom SMTP in Supabase for reliable Gmail/Outlook delivery
-
-## 8) Rollback Plan
-
-- Keep previous Render deploy active until new one is healthy
-- In Vercel, promote previous deployment if critical issue appears
-- Roll back by redeploying previous known-good commit
+- Check Supabase reset template and redirect URL.
+- Configure custom SMTP in Supabase for better Gmail/Outlook delivery.
