@@ -1,219 +1,254 @@
-# ORVANTA — Geopolitical Risk Intelligence Platform
+# ORVANTA AI
 
-> ORVANTA = Operational Risk Visibility, Analysis, Notification, Triage, and Automation.
+Operational Risk Visibility, Analysis, Notification, Triage, and Automation.
 
-> AI-powered Agentic-as-a-Service (AaaS) platform for real-time geopolitical risk monitoring, supply chain intelligence, and automated threat response.
+ORVANTA AI is a full-stack geopolitical risk intelligence platform for teams that need live monitoring, alerting, analytics, and operational response workflows in one place.
 
-## Architecture
+## Why ORVANTA AI
 
-```
-┌─────────────┐     ┌──────────────┐     ┌──────────────┐
-│   Next.js    │────▶│    Nginx     │────▶│   FastAPI    │
-│  Frontend    │     │  Rev Proxy   │     │   Backend    │
-└─────────────┘     └──────────────┘     └──────┬───────┘
-                                                │
-                    ┌───────────────────────────┤
-                    │                           │
-              ┌─────▼─────┐            ┌────────▼────────┐
-              │  Celery    │            │   PostgreSQL    │
-              │  Workers   │            │   + ChromaDB    │
-              └─────┬──────┘            └─────────────────┘
-                    │
-         ┌──────────┼──────────┐
-         │          │          │
-    ┌────▼───┐ ┌────▼───┐ ┌───▼────┐
-    │ GDELT  │ │ ACLED  │ │  RSS   │
-    │ API    │ │ API    │ │ Feeds  │
-    └────────┘ └────────┘ └────────┘
+- Live risk monitoring from multiple feeds
+- Clean dashboard for non-technical and technical users
+- Alert pipeline with acknowledgment and resolution actions
+- Analytics view for trends and replay windows
+- Manage console for sync controls and workspace operations
+- Built-in AI assistant for guided actions and context help
+
+## Product Tour With Figures
+
+All figures below are captured from the running app on browser routes.
+
+### 1. Login
+
+![Login Screen](docs/figures/01-login.png)
+
+### 2. Register
+
+![Register Screen](docs/figures/02-register.png)
+
+### 3. Forgot Password
+
+![Forgot Password Screen](docs/figures/03-forgot-password.png)
+
+### 4. Dashboard Home
+
+![Dashboard Home](docs/figures/04-dashboard-home.png)
+
+### 5. Events
+
+![Events Screen](docs/figures/05-events.png)
+
+### 6. Alerts
+
+![Alerts Screen](docs/figures/06-alerts.png)
+
+### 7. Analytics
+
+![Analytics Screen](docs/figures/07-analytics.png)
+
+### 8. Manage
+
+![Manage Screen](docs/figures/08-manage.png)
+
+### 9. About
+
+![About Screen](docs/figures/09-about.png)
+
+## High-Level Architecture
+
+```mermaid
+flowchart LR
+    U[Browser Client] --> N[Nginx Gateway :8080]
+    N --> F[Next.js Frontend :3000]
+    N --> B[FastAPI Backend :8000]
+
+    B --> P[(PostgreSQL)]
+    B --> R[(Redis)]
+    B --> C[(ChromaDB)]
+    B --> O[Ollama / External AI Providers]
+
+    B --> W[Celery Worker]
+    B --> S[Celery Beat Scheduler]
 ```
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Frontend | Next.js 14, React 18, TypeScript, Recharts, Leaflet |
-| Backend | FastAPI, Python 3.12, SQLAlchemy (async), Pydantic v2 |
-| Agent Layer | CrewAI (5 specialized agents) |
-| Database | PostgreSQL 16 |
-| Queue | Redis + Celery (with Beat scheduler) |
-| Vector DB | ChromaDB |
-| LLM | Ollama (Mistral) |
-| Infra | Docker Compose, Nginx |
+- Frontend: Next.js 14, React, TypeScript, Framer Motion, Recharts
+- Backend: FastAPI, SQLAlchemy Async, Pydantic
+- Queue and jobs: Celery, Redis
+- Data stores: PostgreSQL, ChromaDB
+- Infra: Docker Compose, Nginx
+- Auth options: App JWT, Google Sign-In, Supabase bridge
 
-## Quick Start
+## Repository Structure
 
-### 1. Clone & Configure
+```text
+backend/
+  app/
+    api/
+    core/
+    db/
+    models/
+    schemas/
+    services/
+    tasks/
+frontend/
+  src/
+    app/
+    components/
+    lib/
+nginx/
+docker-compose.yml
+README.md
+```
+
+## Local Setup Guide
+
+### Prerequisites
+
+- Docker Desktop
+- Git
+- Node.js 20+ (optional for non-docker local frontend work)
+- Python 3.11+ (optional for non-docker backend work)
+
+### 1) Clone Project
 
 ```bash
-cp .env.example .env
-# Edit .env with your settings (JWT_SECRET_KEY is critical for production)
+git clone https://github.com/SHASHWAT-MISHRA-997/ORVANTA-AI.git
+cd ORVANTA-AI
 ```
 
-### 2. Run with Docker Compose
+### 2) Configure Environment
+
+If `.env` does not exist, create it from `.env.example`.
+
+Minimum important values to verify:
+
+- `NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1`
+- `NEXT_PUBLIC_WS_URL=ws://localhost:8080/api/v1/ws`
+- `NEXT_PUBLIC_SUPABASE_URL=...`
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=...`
+- `SUPABASE_URL=...`
+- `SUPABASE_JWT_ISSUER=.../auth/v1`
+- `SUPABASE_JWT_AUDIENCE=authenticated`
+
+### 3) Start Full Stack
 
 ```bash
-docker compose up -d
+docker compose up -d --build
 ```
 
-By default, automatic periodic ingestion is disabled for clean client onboarding:
+### 4) Open App
 
-```dotenv
-AUTO_INGEST_ENABLED=false
-```
+- Main app: http://localhost:8080
+- Login: http://localhost:8080/login
+- Mailpit (local SMTP inbox): http://localhost:8025
 
-Set it to `true` only when you intentionally want scheduled background feed ingestion.
+## First-Time User Flow
 
-For always-on 24x7 official live updates (recommended), keep the live sync scheduler enabled:
+1. Open login page.
+2. Sign in with Google or create account.
+3. If you forget password, use Forgot Password.
+4. After sign-in, open Dashboard, Events, Alerts, Analytics, and Manage.
+5. Use Manage to run live sync and control workspace actions.
 
-```dotenv
-LIVE_SYNC_AUTO_ENABLED=true
-LIVE_SYNC_AUTO_INTERVAL_SECONDS=300
-```
+## Supabase Password Reset Setup
 
-This runs a background sync for every active organization every 5 minutes, even when no dashboard page is open.
+If you want real email delivery to Gmail/Outlook (not only Mailpit):
 
-### 3. Access the Platform
+1. In Supabase Dashboard, set:
+- Authentication -> URL Configuration
+- Site URL: `http://localhost:8080`
+- Redirect URL: `http://localhost:8080/reset-password`
 
-- **Frontend**: http://localhost:3000
-- **API Docs**: http://localhost:8000/api/v1/docs
-- **Via Nginx**: http://localhost:8080
+2. In Supabase templates, enable and configure `Reset password` template.
 
-### 4. Register & Login
+3. For reliable delivery, configure custom SMTP inside Supabase:
+- Authentication -> Email -> SMTP Settings
+- Use a provider like Resend, SendGrid, or Gmail App Password
 
-Navigate to http://localhost:3000/register to create your account and organization.
+4. Keep these ORVANTA env values valid:
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+- `SUPABASE_URL`
+- `SUPABASE_JWT_ISSUER`
+- `SUPABASE_JWT_AUDIENCE`
 
-### 5. Enable Google Sign-In (Free)
+## API Quick Reference
 
-Google Sign-In in this project uses Google Identity Services (free).
+- Health: `GET /api/v1/health`
+- Login: `POST /api/v1/auth/login`
+- Register: `POST /api/v1/auth/register`
+- Forgot password: `POST /api/v1/auth/forgot-password`
+- Supabase token exchange: `POST /api/v1/auth/supabase`
+- Dashboard summary: `GET /api/v1/dashboard`
+- Events: `GET /api/v1/events`
+- Alerts: `GET /api/v1/alerts`
 
-1. Create a Web OAuth Client in Google Cloud Console.
-2. Add Authorized JavaScript origins:
-      - `http://localhost:3000`
-      - `http://localhost:8080`
-3. Copy your Google client ID into `.env`:
-      - `GOOGLE_CLIENT_ID=...`
-      - `NEXT_PUBLIC_GOOGLE_CLIENT_ID=...`
-4. Restart backend and frontend containers:
+## Troubleshooting
+
+### App opens but returns 502
+
+- Restart gateway and frontend:
 
 ```bash
-docker compose restart backend frontend
+docker compose restart nginx frontend
 ```
 
-After this, users can click Google Sign-In on Login/Register and get redirected directly to Dashboard without manual registration.
-
-### 6. Enable Clerk Sign-In (Recommended)
-
-You can use Clerk as the auth provider (including Google social login) and still keep existing backend APIs.
-
-1. Create a Clerk application.
-2. In Clerk Dashboard, enable Google as a social provider.
-3. Copy and set these env variables in `.env`:
-      - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=...`
-      - `CLERK_SECRET_KEY=...`
-      - `CLERK_ISSUER=...` (your Clerk issuer URL, for JWT verification)
-4. Restart services:
+- Check logs:
 
 ```bash
-docker compose restart backend frontend
+docker compose logs --tail=200 nginx
+docker compose logs --tail=200 frontend
+docker compose logs --tail=200 backend
 ```
 
-Flow:
-- User clicks Clerk sign-in on Login/Register.
-- Clerk authenticates (Google or other enabled provider).
-- App exchanges Clerk session token at `/api/v1/auth/clerk`.
-- App issues internal JWT and redirects directly to Dashboard.
+### Forgot password goes to Mailpit only
 
-## Client Onboarding SOP
+- Frontend must receive Supabase env vars
+- Supabase template and URL config must be set
+- If delivery is still missing, configure custom SMTP in Supabase
 
-A ready-to-share onboarding checklist is available at:
+### Frontend container exits after package update
 
-- `CLIENT_ONBOARDING_SOP.md`
+Run:
 
-It includes fresh-login steps, admin-only controls, and what to do if a client sees old data.
-
-## API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/v1/auth/register` | Register user + org |
-| POST | `/api/v1/auth/login` | Login, get JWT |
-| POST | `/api/v1/auth/google` | Google Sign-In, get JWT |
-| POST | `/api/v1/auth/forgot-password` | Request password reset |
-| POST | `/api/v1/auth/reset-password` | Reset password with token |
-| GET | `/api/v1/auth/me` | Get current user |
-| GET | `/api/v1/dashboard` | Dashboard stats |
-| GET | `/api/v1/events` | List events (filtered) |
-| POST | `/api/v1/events` | Create event |
-| GET | `/api/v1/risk-score` | List risk scores |
-| POST | `/api/v1/risk-score/compute` | Compute risk scores |
-| GET | `/api/v1/risk-score/trends` | Get risk trends |
-| GET | `/api/v1/alerts` | List alerts |
-| POST | `/api/v1/alerts/{id}/ack` | Acknowledge alert |
-| POST | `/api/v1/agents/run` | Trigger agent pipeline |
-| GET | `/api/v1/agents/runs` | List agent runs |
-| GET | `/api/v1/agents/runs/{id}` | Run detail + logs |
-| GET | `/api/v1/agents/status` | Agent statuses |
-| WS | `/api/v1/ws/{org_id}` | Real-time alerts |
-
-## Agent Pipeline
-
-The platform uses 5 specialized AI agents:
-
-1. **Data Agent** — Collects events from GDELT, ACLED, RSS feeds
-2. **Verification Agent** — Validates source credibility, deduplicates
-3. **Risk Agent** — Computes risk scores (severity × confidence × proximity × time decay × supply chain weight)
-4. **Prediction Agent** — Trend analysis and threat forecasting
-5. **Action Agent** — Generates alerts and recommendations
-
-## Risk Scoring Algorithm
-
-```
-Score = (Severity × Confidence × Proximity) × Supply Chain Weight × Time Decay × Region Weight
-
-Where:
-- Severity: Combines event-inherent severity with event type base severity (1-10)
-- Confidence: Source reliability factor (0-1)
-- Proximity: Distance to 8 major supply chain chokepoints
-- Supply Chain Weight: Amplified for events near critical trade routes
-- Time Decay: Exponential decay with 7-day half-life
-- Region Weight: Geopolitical significance multiplier
+```bash
+docker compose up -d --build frontend
 ```
 
-## Project Structure
+Then inspect:
 
+```bash
+docker compose logs --tail=200 frontend
 ```
-ADvanced SAAS/
-├── backend/
-│   ├── app/
-│   │   ├── api/           # FastAPI routes
-│   │   ├── agents/        # CrewAI agent definitions
-│   │   ├── core/          # Config, security, deps, logging
-│   │   ├── db/            # Database engine, session
-│   │   ├── ingestion/     # GDELT, ACLED, RSS pipelines
-│   │   ├── models/        # SQLAlchemy models
-│   │   ├── schemas/       # Pydantic schemas
-│   │   ├── services/      # Business logic services
-│   │   ├── tasks/         # Celery tasks
-│   │   ├── websocket/     # WebSocket manager
-│   │   └── main.py        # FastAPI app entry
-│   ├── Dockerfile
-│   └── requirements.txt
-├── frontend/
-│   ├── src/
-│   │   ├── app/           # Next.js pages (App Router)
-│   │   ├── components/    # Reusable components
-│   │   └── lib/           # API client
-│   ├── Dockerfile
-│   └── package.json
-├── nginx/
-│   └── nginx.conf
-├── docker-compose.yml
-├── .env.example
-└── README.md
+
+## Development Commands
+
+```bash
+# Start everything
+docker compose up -d --build
+
+# Stop everything
+docker compose down
+
+# Rebuild a single service
+docker compose up -d --build frontend
+
+# View running services
+docker compose ps
 ```
+
+## Security Notes
+
+- Never commit real secrets in `.env`
+- Keep API keys rotated periodically
+- Use production-grade SMTP for public deployment
+- Restrict CORS and hostnames for production
 
 ## License
 
-MIT
-#   O R V A N T A - A I  
- 
+Use your preferred license for this repository. If not yet added, create a `LICENSE` file before production distribution.
+
+## Maintainer
+
+SHASHWAT MISHRA
