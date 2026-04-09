@@ -3,7 +3,7 @@ import axios from 'axios';
 const DEFAULT_API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
 
 function normalizeApiUrl(url: string) {
-  return url.replace(/\/+$/, '');
+  return url.trim().replace(/\/+$/, '');
 }
 
 function resolveApiUrl(): string {
