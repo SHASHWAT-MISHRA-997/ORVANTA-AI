@@ -1,0 +1,34 @@
+# Secrets and env
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.pytest_cache/
+.mypy_cache/
+
+# Node / Next
+node_modules/
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+
+# Build / runtime
+*.log
+logs.txt
+backend_logs.txt
+backend/celerybeat-schedule
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local temp and browser profiles
+tmp/

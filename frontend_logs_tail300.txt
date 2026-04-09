@@ -1,0 +1,180 @@
+﻿frontend-1  | 
+frontend-1  | > agenticops-cloud-frontend@1.0.0 dev
+frontend-1  | > next dev
+frontend-1  | 
+frontend-1  |   Γû▓ Next.js 14.2.35
+frontend-1  |   - Local:        http://localhost:3000
+frontend-1  |   - Environments: .env.local
+frontend-1  | 
+frontend-1  |  Γ£ô Starting...
+frontend-1  |  Γ£ô Ready in 8.4s
+frontend-1  |  Γùï Compiling /dashboard/about ...
+frontend-1  |  Γ£ô Compiled /dashboard/settings in 21.9s (1493 modules)
+frontend-1  |  GET /dashboard/about 200 in 25883ms
+frontend-1  |  ΓÜá Cross origin request detected from 127.0.0.1 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+frontend-1  | Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+frontend-1  |  Γùï Compiling /dashboard ...
+frontend-1  |  Γ£ô Compiled /dashboard in 3.1s (1501 modules)
+frontend-1  | 
+frontend-1  | > agenticops-cloud-frontend@1.0.0 dev
+frontend-1  | > next dev
+frontend-1  | 
+frontend-1  |   Γû▓ Next.js 14.2.35
+frontend-1  |   - Local:        http://localhost:3000
+frontend-1  |   - Environments: .env.local
+frontend-1  | 
+frontend-1  |  Γ£ô Starting...
+frontend-1  |  Γ£ô Ready in 9.1s
+frontend-1  |  Γùï Compiling /dashboard ...
+frontend-1  |  Γ£ô Compiled /dashboard in 14.2s (1483 modules)
+frontend-1  |  Γ£ô Compiled in 3.7s (712 modules)
+frontend-1  |  GET /dashboard 200 in 18316ms
+frontend-1  |  ΓÜá Cross origin request detected from 127.0.0.1 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+frontend-1  | Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+frontend-1  |  Γùï Compiling /dashboard/events ...
+frontend-1  |  Γ£ô Compiled /dashboard/events in 19.7s (1487 modules)
+frontend-1  |  Γùï Compiling /dashboard/agents ...
+frontend-1  |  Γ£ô Compiled /dashboard/agents in 19.6s (1511 modules)
+frontend-1  |  Γùï Compiling /dashboard/analytics ...
+frontend-1  |  Γ£ô Compiled /dashboard/analytics in 47.4s (2579 modules)
+frontend-1  |  Γùï Compiling /dashboard/about ...
+frontend-1  |  Γ£ô Compiled /dashboard/about in 2.8s (2592 modules)
+frontend-1  |  Γùï Compiling /dashboard/developer ...
+frontend-1  |  Γ£ô Compiled /dashboard/developer in 1883ms (2607 modules)
+frontend-1  | [?25h
+frontend-1  | 
+frontend-1  | > agenticops-cloud-frontend@1.0.0 dev
+frontend-1  | > next dev
+frontend-1  | 
+frontend-1  |   Γû▓ Next.js 14.2.35
+frontend-1  |   - Local:        http://localhost:3000
+frontend-1  |   - Environments: .env.local
+frontend-1  | 
+frontend-1  |  Γ£ô Starting...
+frontend-1  |  Γ£ô Ready in 3.7s
+frontend-1  |  Γùï Compiling /dashboard/events ...
+frontend-1  |  Γ£ô Compiled /dashboard/events in 12.5s (1487 modules)
+frontend-1  |  Γ£ô Compiled in 2.5s (714 modules)
+frontend-1  |  GET /dashboard/events 200 in 15255ms
+frontend-1  |  ΓÜá Cross origin request detected from 127.0.0.1 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+frontend-1  | Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+frontend-1  |  GET /dashboard/events 200 in 338ms
+frontend-1  |  GET /dashboard/events 200 in 531ms
+frontend-1  |  Γùï Compiling /_not-found ...
+frontend-1  |  Γ£ô Compiled /_not-found in 2.7s (1476 modules)
+frontend-1  |  GET /_next/static/css/app/layout.css?v=1775737774899 404 in 3517ms
+frontend-1  |  GET /_next/static/chunks/webpack.js?v=1775737774899 404 in 3616ms
+frontend-1  |  GET /_next/static/chunks/app-pages-internals.js 404 in 3265ms
+frontend-1  |  GET /_next/static/chunks/main-app.js?v=1775737774899 404 in 3252ms
+frontend-1  |  GET /_next/static/chunks/app/dashboard/layout.js 404 in 3170ms
+frontend-1  |  GET /_next/static/chunks/app/dashboard/events/page.js 404 in 3142ms
+frontend-1  |  GET /_next/static/chunks/app/layout.js 404 in 57ms
+frontend-1  |  GET /dashboard/events 200 in 441ms
+frontend-1  |  GET /_next/static/css/app/layout.css?v=1775737782739 404 in 180ms
+frontend-1  |  GET /_next/static/chunks/main-app.js?v=1775737782739 404 in 205ms
+frontend-1  |  GET /_next/static/chunks/app-pages-internals.js 404 in 174ms
+frontend-1  |  GET /_next/static/chunks/app/dashboard/layout.js 404 in 136ms
+frontend-1  |  GET /_next/static/chunks/app/dashboard/events/page.js 404 in 114ms
+frontend-1  |  GET /_next/static/chunks/app/layout.js 404 in 100ms
+frontend-1  |  Γùï Compiling / ...
+frontend-1  |  Γ£ô Compiled / in 4.4s (1488 modules)
+frontend-1  |  GET / 200 in 7730ms
+frontend-1  |  GET /dashboard/events 200 in 2408ms
+frontend-1  |  Γùï Compiling /_not-found ...
+frontend-1  |  Γ£ô Compiled /_not-found in 3.7s (1491 modules)
+frontend-1  |  GET /_next/static/css/app/layout.css?v=1775738484850 404 in 5202ms
+frontend-1  |  GET /_next/static/chunks/main-app.js?v=1775738484850 404 in 5798ms
+frontend-1  |  GET /_next/static/chunks/app/dashboard/layout.js 404 in 5341ms
+frontend-1  |  GET /_next/static/chunks/app-pages-internals.js 404 in 5680ms
+frontend-1  |  GET /_next/static/chunks/app/dashboard/events/page.js 404 in 4984ms
+frontend-1  |  GET /_next/static/chunks/app/layout.js 404 in 4814ms
+frontend-1  |  GET / 200 in 407ms
+frontend-1  |  GET / 200 in 278ms
+frontend-1  |  GET / 200 in 411ms
+frontend-1  |  GET / 200 in 450ms
+frontend-1  |  GET /dashboard/events 200 in 1199ms
+frontend-1  |  GET /_next/static/chunks/app/dashboard/events/page.js 404 in 115ms
+frontend-1  |  GET /_next/static/chunks/app/dashboard/layout.js 404 in 121ms
+frontend-1  |  GET /_next/static/chunks/app/layout.js 404 in 101ms
+frontend-1  |  GET /_next/static/chunks/app-pages-internals.js 404 in 97ms
+frontend-1  |  GET /_next/static/chunks/main-app.js?v=1775738755609 404 in 106ms
+frontend-1  |  GET /_next/static/chunks/polyfills.js 404 in 113ms
+frontend-1  |  GET /_next/static/css/app/layout.css?v=1775738755609 404 in 105ms
+frontend-1  |  GET /_next/static/css/app/layout.css?v=1775738755609%5C 404 in 97ms
+frontend-1  |  GET /dashboard/events 200 in 516ms
+frontend-1  |  GET /_next/static/chunks/app/dashboard/events/page.js 404 in 101ms
+frontend-1  |  GET /_next/static/chunks/app/dashboard/layout.js 404 in 98ms
+frontend-1  |  GET /_next/static/chunks/app/layout.js 404 in 113ms
+frontend-1  |  GET /_next/static/chunks/app-pages-internals.js 404 in 103ms
+frontend-1  |  GET /_next/static/chunks/main-app.js?v=1775738759373 404 in 107ms
+frontend-1  |  GET /_next/static/chunks/polyfills.js 404 in 99ms
+frontend-1  |  GET /_next/static/css/app/layout.css?v=1775738759373 404 in 129ms
+frontend-1  |  GET /_next/static/css/app/layout.css?v=1775738759373%5C 404 in 205ms
+frontend-1  |  GET /dashboard/events 200 in 492ms
+frontend-1  |  GET /_next/static/chunks/app/dashboard/events/page.js 404 in 111ms
+frontend-1  |  GET /_next/static/chunks/app/dashboard/layout.js 404 in 119ms
+frontend-1  |  GET /_next/static/chunks/app/layout.js 404 in 124ms
+frontend-1  |  GET /_next/static/chunks/app-pages-internals.js 404 in 115ms
+frontend-1  |  GET /_next/static/chunks/main-app.js?v=1775738842684 404 in 103ms
+frontend-1  |  GET /_next/static/chunks/polyfills.js 404 in 131ms
+frontend-1  |  GET /_next/static/css/app/layout.css?v=1775738842684 404 in 168ms
+frontend-1  |  GET /_next/static/css/app/layout.css?v=1775738842684%5C 404 in 144ms
+frontend-1  |  GET /dashboard/events 200 in 468ms
+frontend-1  |  GET /_next/static/chunks/app/dashboard/events/page.js 404 in 110ms
+frontend-1  |  GET /_next/static/chunks/app/dashboard/layout.js 404 in 111ms
+frontend-1  |  GET /_next/static/chunks/app/layout.js 404 in 106ms
+frontend-1  |  GET /_next/static/chunks/app-pages-internals.js 404 in 104ms
+frontend-1  |  GET /_next/static/chunks/main-app.js?v=1775738845835 404 in 97ms
+frontend-1  |  GET /_next/static/chunks/polyfills.js 404 in 134ms
+frontend-1  |  GET /_next/static/css/app/layout.css?v=1775738845835 404 in 132ms
+frontend-1  |  GET /dashboard/events 200 in 635ms
+frontend-1  |  GET /_next/static/css/app/layout.css?v=1775738845835%5C 404 in 648ms
+frontend-1  |  GET /_next/static/css/app/layout.css?v=1775738848193 404 in 566ms
+frontend-1  |  GET /_next/static/chunks/main-app.js?v=1775738848193 404 in 855ms
+frontend-1  |  GET /_next/static/chunks/app-pages-internals.js 404 in 790ms
+frontend-1  |  GET /_next/static/chunks/app/dashboard/layout.js 404 in 564ms
+frontend-1  |  GET /_next/static/chunks/app/dashboard/events/page.js 404 in 513ms
+frontend-1  |  GET /_next/static/chunks/app/layout.js 404 in 480ms
+frontend-1  |  GET /dashboard/events 200 in 669ms
+frontend-1  |  GET /_next/static/css/app/layout.css?v=1775738850100 404 in 862ms
+frontend-1  |  GET /_next/static/chunks/main-app.js?v=1775738850100 404 in 1622ms
+frontend-1  |  GET /_next/static/chunks/app-pages-internals.js 404 in 1534ms
+frontend-1  |  GET /_next/static/chunks/app/dashboard/layout.js 404 in 1385ms
+frontend-1  |  GET /_next/static/chunks/app/dashboard/events/page.js 404 in 1127ms
+frontend-1  |  GET /_next/static/chunks/app/layout.js 404 in 803ms
+frontend-1  |  GET /dashboard/events 200 in 532ms
+frontend-1  |  GET /_next/static/chunks/app/dashboard/events/page.js 404 in 99ms
+frontend-1  |  GET /_next/static/chunks/app/dashboard/layout.js 404 in 184ms
+frontend-1  |  GET /_next/static/chunks/app/layout.js 404 in 110ms
+frontend-1  |  GET /_next/static/chunks/app-pages-internals.js 404 in 109ms
+frontend-1  |  GET /_next/static/chunks/main-app.js?v=1775738917394 404 in 107ms
+frontend-1  |  GET /_next/static/chunks/polyfills.js 404 in 128ms
+frontend-1  |  GET /_next/static/css/app/layout.css?v=1775738917394 404 in 120ms
+frontend-1  |  GET /_next/static/css/app/layout.css?v=1775738917394%5C 404 in 93ms
+frontend-1  |  GET /dashboard/events 200 in 478ms
+frontend-1  |  GET /_next/static/chunks/app/dashboard/events/page.js 404 in 164ms
+frontend-1  |  GET /_next/static/chunks/app/dashboard/layout.js 404 in 117ms
+frontend-1  |  GET /_next/static/chunks/app/layout.js 404 in 105ms
+frontend-1  |  GET /_next/static/chunks/app-pages-internals.js 404 in 149ms
+frontend-1  |  GET /_next/static/chunks/main-app.js?v=1775738920522 404 in 117ms
+frontend-1  |  GET /_next/static/chunks/polyfills.js 404 in 98ms
+frontend-1  |  GET /_next/static/css/app/layout.css?v=1775738920522 404 in 97ms
+frontend-1  |  GET /_next/static/css/app/layout.css?v=1775738920522%5C 404 in 108ms
+frontend-1  |  GET /dashboard/events 200 in 574ms
+frontend-1  |  GET /_next/static/chunks/app/dashboard/events/page.js 404 in 313ms
+frontend-1  |  GET /_next/static/chunks/app/dashboard/layout.js 404 in 112ms
+frontend-1  |  GET /_next/static/chunks/app/layout.js 404 in 114ms
+frontend-1  |  GET /_next/static/chunks/app-pages-internals.js 404 in 111ms
+frontend-1  |  GET /_next/static/chunks/main-app.js?v=1775739262608 404 in 112ms
+frontend-1  |  GET /_next/static/chunks/polyfills.js 404 in 125ms
+frontend-1  |  GET /_next/static/css/app/layout.css?v=1775739262608 404 in 118ms
+frontend-1  |  GET /_next/static/css/app/layout.css?v=1775739262608%5C 404 in 85ms
+frontend-1  |  GET /dashboard/events 200 in 415ms
+frontend-1  |  GET /_next/static/chunks/app/dashboard/events/page.js 404 in 129ms
+frontend-1  |  GET /_next/static/chunks/app/dashboard/layout.js 404 in 86ms
+frontend-1  |  GET /_next/static/chunks/app/layout.js 404 in 119ms
+frontend-1  |  GET /_next/static/chunks/app-pages-internals.js 404 in 86ms
+frontend-1  |  GET /_next/static/chunks/main-app.js?v=1775739266153 404 in 164ms
+frontend-1  |  GET /_next/static/chunks/polyfills.js 404 in 87ms
+frontend-1  |  GET /_next/static/css/app/layout.css?v=1775739266153 404 in 92ms
+frontend-1  |  GET /_next/static/css/app/layout.css?v=1775739266153%5C 404 in 96ms
