@@ -1,0 +1,141 @@
+services:
+  - type: web
+    name: orvanta-api
+    env: docker
+    dockerContext: ./backend
+    dockerfilePath: ./backend/Dockerfile
+    autoDeploy: true
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: SQL_ECHO
+        value: "false"
+      - key: API_V1_PREFIX
+        value: /api/v1
+      - key: FRONTEND_URL
+        sync: false
+      - key: BACKEND_CORS_ORIGINS
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_URL_SYNC
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: JWT_ALGORITHM
+        value: HS256
+      - key: JWT_ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "1440"
+      - key: GDELT_ENABLED
+        value: "true"
+      - key: AUTO_INGEST_ENABLED
+        value: "false"
+      - key: LIVE_SYNC_AUTO_ENABLED
+        value: "true"
+      - key: LIVE_SYNC_AUTO_INTERVAL_SECONDS
+        value: "300"
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_JWT_ISSUER
+        sync: false
+      - key: SUPABASE_JWT_AUDIENCE
+        value: authenticated
+
+  - type: worker
+    name: orvanta-worker
+    env: docker
+    dockerContext: ./backend
+    dockerfilePath: ./backend/Dockerfile
+    dockerCommand: celery -A app.tasks.celery_app worker --loglevel=info --concurrency=2
+    autoDeploy: true
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: SQL_ECHO
+        value: "false"
+      - key: API_V1_PREFIX
+        value: /api/v1
+      - key: FRONTEND_URL
+        sync: false
+      - key: BACKEND_CORS_ORIGINS
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_URL_SYNC
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: JWT_SECRET_KEY
+        sync: false
+      - key: JWT_ALGORITHM
+        value: HS256
+      - key: JWT_ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "1440"
+      - key: GDELT_ENABLED
+        value: "true"
+      - key: AUTO_INGEST_ENABLED
+        value: "false"
+      - key: LIVE_SYNC_AUTO_ENABLED
+        value: "true"
+      - key: LIVE_SYNC_AUTO_INTERVAL_SECONDS
+        value: "300"
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_JWT_ISSUER
+        sync: false
+      - key: SUPABASE_JWT_AUDIENCE
+        value: authenticated
+
+  - type: worker
+    name: orvanta-beat
+    env: docker
+    dockerContext: ./backend
+    dockerfilePath: ./backend/Dockerfile
+    dockerCommand: celery -A app.tasks.celery_app beat --loglevel=info
+    autoDeploy: true
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: SQL_ECHO
+        value: "false"
+      - key: API_V1_PREFIX
+        value: /api/v1
+      - key: FRONTEND_URL
+        sync: false
+      - key: BACKEND_CORS_ORIGINS
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_URL_SYNC
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: JWT_SECRET_KEY
+        sync: false
+      - key: JWT_ALGORITHM
+        value: HS256
+      - key: JWT_ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "1440"
+      - key: GDELT_ENABLED
+        value: "true"
+      - key: AUTO_INGEST_ENABLED
+        value: "false"
+      - key: LIVE_SYNC_AUTO_ENABLED
+        value: "true"
+      - key: LIVE_SYNC_AUTO_INTERVAL_SECONDS
+        value: "300"
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_JWT_ISSUER
+        sync: false
+      - key: SUPABASE_JWT_AUDIENCE
+        value: authenticated
